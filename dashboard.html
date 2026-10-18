@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drain Guard | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <a href="index.html" class="logo">DRAIN<span>GUARD</span></a>
+        <nav>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="#rewards">Rewards</a>
+            <a href="#activity">Activity</a>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <section class="welcome">
+            <p class="eyebrow">YOUR RECYCLING SPACE</p>
+            <h1>Welcome back, Caleb!</h1>
+            <p>Every recycled item brings us closer to a cleaner environment.</p>
+        </section>
+
+        <section class="points-card">
+            <p>YOUR REWARD POINTS</p>
+            <h2 id="points">0 <span>points</span></h2>
+            <p>Keep recycling to earn more rewards.</p>
+        </section>
+
+        <section class="stats">
+            <article class="stat-card">
+                <h3>Items Recycled</h3>
+                <p id="items-recycled">0</p>
+            </article>
+
+            <article class="stat-card">
+                <h3>Reward Balance</h3>
+                <p id="balance">₦0</p>
+            </article>
+
+            <article class="stat-card">
+                <h3>Waste Recovered</h3>
+                <p id="waste">0 kg</p>
+            </article>
+        </section>
+
+        <section class="recycle-section">
+            <h2>Ready to make a difference?</h2>
+            <p>Choose a recyclable material to learn more.</p>
+
+            <div class="recycle-grid">
+                <article class="recycle-card">
+                    <div class="material-icon">♻️</div>
+                    <h3>Plastic</h3>
+                    <p>Plastic bottles and containers</p>
+                </article>
+
+                <article class="recycle-card">
+                    <div class="material-icon">📦</div>
+                    <h3>Paper</h3>
+                    <p>Paper and cardboard materials</p>
+                </article>
+
+                <article class="recycle-card">
+                    <div class="material-icon">🥫</div>
+                    <h3>Metal</h3>
+                    <p>Aluminium cans and scrap metal</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="activity-section" id="activity">
+            <h2>Recent Activity</h2>
+            <p>No recycling activity yet. Your progress will appear here.</p>
+        </section>
+
+        <section class="rewards-section" id="rewards">
+            <h2>Redeem Rewards</h2>
+            <p>Use your earned points for available rewards.</p>
+            <button id="redeem-button" type="button">Explore Rewards</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>Drain Guard System · Smart Recycling. Cleaner Communities.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

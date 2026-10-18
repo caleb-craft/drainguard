@@ -1,0 +1,256 @@
+/* GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f7f2;
+    color: #173b2a;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* NAVIGATION */
+.navbar {
+    background: #123d2b;
+    color: white;
+    padding: 20px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: #a3e635;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.navbar nav a {
+    color: #dce9df;
+    font-size: 14px;
+}
+
+.navbar nav a.active,
+.navbar nav a:hover {
+    color: #a3e635;
+}
+
+/* MAIN DASHBOARD */
+.dashboard {
+    max-width: 1150px;
+    margin: auto;
+    padding: 45px 25px;
+}
+
+.welcome {
+    margin-bottom: 30px;
+}
+
+.eyebrow {
+    color: #4d8b5c;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.welcome h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    margin: 8px 0;
+}
+
+.welcome > p:last-child {
+    color: #6b7e70;
+}
+
+/* POINTS CARD */
+.points-card {
+    padding: 32px;
+    border-radius: 20px;
+    color: white;
+    background: linear-gradient(120deg, #14532d, #27834b);
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.points-card > p:first-child {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #d5f5d9;
+}
+
+.points-card h2 {
+    font-size: 43px;
+    margin: 10px 0;
+}
+
+.points-card h2 span {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.points-card > p:last-child {
+    color: #e1f5e5;
+    font-size: 14px;
+}
+
+/* STATISTICS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 45px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    border: 1px solid #e1eae0;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px #163b2a08;
+}
+
+.stat-card h3 {
+    color: #718174;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.stat-card p {
+    font-size: 29px;
+    font-weight: bold;
+    color: #207442;
+    margin-top: 8px;
+}
+
+/* RECYCLING MATERIALS */
+.recycle-section {
+    margin-bottom: 40px;
+}
+
+.recycle-section h2,
+.activity-section h2,
+.rewards-section h2 {
+    font-size: 23px;
+    margin-bottom: 6px;
+}
+
+.recycle-section > p,
+.activity-section > p,
+.rewards-section > p {
+    color: #718174;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.recycle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 22px;
+}
+
+.recycle-card {
+    background: white;
+    border: 1px solid #e1eae0;
+    border-radius: 16px;
+    padding: 25px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recycle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px #163b2a12;
+}
+
+.material-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.recycle-card h3 {
+    margin-bottom: 5px;
+}
+
+.recycle-card p {
+    color: #718174;
+    font-size: 13px;
+}
+
+/* ACTIVITY AND REWARDS */
+.activity-section,
+.rewards-section {
+    background: white;
+    padding: 25px;
+    border: 1px solid #e1eae0;
+    border-radius: 16px;
+    margin-bottom: 22px;
+}
+
+#redeem-button {
+    background: #17683a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#redeem-button:hover {
+    background: #104b2a;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #718174;
+    font-size: 13px;
+    border-top: 1px solid #e1eae0;
+}
+
+/* MOBILE SCREEN */
+@media (max-width: 650px) {
+    .navbar {
+        padding: 18px 5%;
+    }
+
+    .navbar nav {
+        gap: 15px;
+    }
+
+    .dashboard {
+        padding: 30px 18px;
+    }
+
+    .stats,
+    .recycle-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .points-card {
+        padding: 25px;
+    }
+}

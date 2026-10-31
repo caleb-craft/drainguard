@@ -186,13 +186,13 @@
 
   <main>
     <section class="login-box">
-      <h1>Welcome back</h1>
-      <p class="intro">
+      <h1 id="signInTitle">Welcome back</h1>
+      <p class="intro" id="signInIntro">
         Sign in to access your DrainGuard dashboard.
       </p>
 
       <form id="loginForm">
-        <label for="email">Email address</label>
+        <label for="email" id="emailLabel">Email address</label>
         <input
           type="email"
           id="email"
@@ -201,7 +201,7 @@
         >
 
         <div class="password-row">
-          <label for="password">Password</label>
+          <label for="password" id="passwordLabel">Password</label>
           <button type="button" id="togglePassword">Show</button>
         </div>
 
@@ -212,11 +212,21 @@
           required
         >
 
+        <label for="confirmPassword" id="confirmPasswordLabel" hidden>Confirm new password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Enter your new password again"
+          autocomplete="new-password"
+          minlength="8"
+          hidden
+        >
+
         <a class="forgot" href="#" id="forgotPassword">
           Forgot password?
         </a>
 
-        <button class="submit-btn" type="submit">Sign In</button>
+        <button class="submit-btn" id="submitButton" type="submit">Sign In</button>
         <p class="message" id="message" role="status"></p>
       </form>
 
@@ -246,18 +256,85 @@
       toggle.textContent = showing ? "Show" : "Hide";
     });
 
-    document.getElementById("loginForm").addEventListener("submit", function (event) {
-      event.preventDefault();
+    const message = document.getElementById("message");
+    const form = document.getElementById("loginForm");
+    const email = document.getElementById("email");
+    const passwordLabel = document.getElementById("passwordLabel");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const confirmPasswordLabel = document.getElementById("confirmPasswordLabel");
+    const submitButton = document.getElementById("submitButton");
+    const recoveryMode = new URLSearchParams(window.location.search).get("recovery") === "1";
 
-      document.getElementById("message").textContent =
-        "The sign-in page is ready, but account login needs to be connected to a secure backend.";
+    if (recoveryMode) {
+      document.getElementById("signInTitle").textContent = "Choose a new password";
+      document.getElementById("signInIntro").textContent = "Enter and confirm your new password.";
+      document.getElementById("emailLabel").hidden = true;
+      email.hidden = true;
+      email.required = false;
+      document.getElementById("forgotPassword").hidden = true;
+      passwordLabel.textContent = "New password";
+      password.autocomplete = "new-password";
+      confirmPasswordLabel.hidden = false;
+      confirmPassword.hidden = false;
+      confirmPassword.required = true;
+      submitButton.textContent = "Update Password";
+    }
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      message.style.color = "#a33";
+      submitButton.disabled = true;
+
+      try {
+        if (recoveryMode) {
+          if (password.value !== confirmPassword.value) {
+            message.textContent = "Your passwords do not match.";
+            return;
+          }
+
+          const { error } = await supabaseClient.auth.updateUser({ password: password.value });
+          if (error) throw error;
+          message.style.color = "#17653a";
+          message.textContent = "Password updated. Redirecting to your dashboard...";
+          window.location.replace("dashboard.html");
+          return;
+        }
+
+        const { error } = await supabaseClient.auth.signInWithPassword({
+          email: email.value.trim(),
+          password: password.value
+        });
+        if (error) throw error;
+        window.location.replace("dashboard.html");
+      } catch (error) {
+        message.textContent = error.message || "Something went wrong. Please try again.";
+      } finally {
+        submitButton.disabled = false;
+      }
     });
 
-    document.getElementById("forgotPassword").addEventListener("click", function (event) {
+    document.getElementById("forgotPassword").addEventListener("click", async function (event) {
       event.preventDefault();
-      document.getElementById("message").textContent =
-        "Password recovery will be available after account authentication is connected.";
+      if (!email.value.trim() || !email.checkValidity()) {
+        message.textContent = "Enter a valid email address first.";
+        email.focus();
+        return;
+      }
+
+      message.style.color = "#a33";
+      try {
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(email.value.trim(), {
+          redirectTo: `${window.location.origin}/signin.html?recovery=1`
+        });
+        if (error) throw error;
+        message.style.color = "#17653a";
+        message.textContent = "If an account exists for that email, a password reset link is on its way.";
+      } catch (error) {
+        message.textContent = error.message || "Could not send the reset email. Please try again.";
+      }
     });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
 </body>
 </html>

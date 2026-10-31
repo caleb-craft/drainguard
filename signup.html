@@ -222,12 +222,15 @@
     document.getElementById("year").textContent =
       new Date().getFullYear();
 
-    document.getElementById("signupForm").addEventListener("submit", function (event) {
+    const form = document.getElementById("signupForm");
+    const message = document.getElementById("message");
+    const submitButton = form.querySelector("button[type='submit']");
+
+    form.addEventListener("submit", async function (event) {
       event.preventDefault();
 
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirmPassword").value;
-      const message = document.getElementById("message");
 
       if (password !== confirmPassword) {
         message.style.color = "#b42318";
@@ -235,10 +238,37 @@
         return;
       }
 
-      message.style.color = "#17653a";
-      message.textContent =
-        "The form is ready. Account creation needs a secure backend before it can save your account.";
+      submitButton.disabled = true;
+      message.style.color = "#b42318";
+
+      try {
+        const { data, error } = await supabaseClient.auth.signUp({
+          email: document.getElementById("email").value.trim(),
+          password,
+          options: {
+            data: { full_name: document.getElementById("name").value.trim() },
+            emailRedirectTo: `${window.location.origin}/dashboard.html`
+          }
+        });
+
+        if (error) throw error;
+
+        if (data.session) {
+          window.location.replace("dashboard.html");
+          return;
+        }
+
+        message.style.color = "#17653a";
+        message.textContent = "Account created. Check your email and confirm your address before signing in.";
+        form.reset();
+      } catch (error) {
+        message.textContent = error.message || "Could not create your account. Please try again.";
+      } finally {
+        submitButton.disabled = false;
+      }
     });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
 </body>
 </html>

@@ -13,13 +13,14 @@
             <a href="dashboard.html" class="active">Dashboard</a>
             <a href="#rewards">Rewards</a>
             <a href="#activity">Activity</a>
+            <button type="button" class="nav-button" id="signOutButton">Sign out</button>
         </nav>
     </header>
 
     <main class="dashboard">
         <section class="welcome">
             <p class="eyebrow">YOUR RECYCLING SPACE</p>
-            <h1>Welcome back, Caleb!</h1>
+            <h1>Welcome back, <span id="welcome-name"></span>!</h1>
             <p>Every recycled item brings us closer to a cleaner environment.</p>
         </section>
 
@@ -89,6 +90,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>

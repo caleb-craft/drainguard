@@ -55,6 +55,21 @@ a {
     color: #a3e635;
 }
 
+.nav-button {
+    border: 1px solid #a3e635;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background: transparent;
+    color: #dce9df;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    color: #a3e635;
+}
+
 /* MAIN DASHBOARD */
 .dashboard {
     max-width: 1150px;

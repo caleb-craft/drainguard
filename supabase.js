@@ -1,4 +1,3 @@
-
 const SUPABASE_URL = "https://stutslxuvvqfrewcgxfn.supabase.co";
 const SUPABASE_KEY = "sb_publishable_EI-z3KROJDC61EqYwgaVwQ_A-vL8683";
 
@@ -27,17 +26,10 @@ async function loadPoints() {
 }
 
 async function initializeDashboard() {
-  const { data, error } = await supabaseClient.auth.getSession();
-
-  if (error || !data.session) {
-    window.location.replace("signin.html");
-    return;
-  }
-
   const welcomeName = document.getElementById("welcome-name");
+
   if (welcomeName) {
-    welcomeName.textContent =
-      data.session.user.user_metadata.full_name || data.session.user.email;
+    welcomeName.textContent = "Guest";
   }
 
   await loadPoints();
@@ -46,12 +38,7 @@ async function initializeDashboard() {
 if (document.getElementById("points")) {
   initializeDashboard();
 
-  document.getElementById("signOutButton")?.addEventListener("click", async () => {
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) {
-      console.error("Could not sign out:", error.message);
-      return;
-    }
-    window.location.replace("signin.html");
+  document.getElementById("signOutButton")?.addEventListener("click", () => {
+    window.location.href = "index.html";
   });
 }
